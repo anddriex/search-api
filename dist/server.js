@@ -1,27 +1,19 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const http_1 = __importDefault(require("http"));
-const express_1 = __importDefault(require("express"));
-const utils_1 = require("./utils");
-const middleware_1 = __importDefault(require("./middleware"));
-const errorHandlers_1 = __importDefault(require("./middleware/errorHandlers"));
-const services_1 = __importDefault(require("./services"));
-process.on('uncaughtException', e => {
-    console.log(e);
-    process.exit(1);
-});
-process.on('unhandledRejection', e => {
-    console.log(e);
-    process.exit(1);
-});
-const router = express_1.default();
-utils_1.applyMiddleware(middleware_1.default, router);
-utils_1.applyRoutes(services_1.default, router);
-utils_1.applyMiddleware(errorHandlers_1.default, router);
+const sequelize_1 = require("./sequelize");
+const app_1 = require("./app");
+const http_1 = require("http");
 const { PORT = 3000 } = process.env;
-const server = http_1.default.createServer(router);
-server.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}...`));
+(() => __awaiter(this, void 0, void 0, function* () {
+    yield sequelize_1.sequelize.sync({ force: true });
+    http_1.createServer(app_1.app).listen(PORT, () => console.log(`Server is running http://localhost:${PORT}...`));
+}))();
 //# sourceMappingURL=server.js.map
