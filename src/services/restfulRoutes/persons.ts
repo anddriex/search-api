@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {Person} from "../models/Person";
+import {Person} from "../../models/Person";
 
 export const persons = Router();
 
@@ -24,7 +24,7 @@ persons.get('/', async (req, res,next) => {
 
 persons.get('/:id', async (req, res,next) => {
     try {
-        const person = await Person.scope(req.query['scope'].findByPk(req.params['id']));
+        const person = await Person.findByPk(req.params.id);
         res.json(person);
     } catch (e) {
         next(e);

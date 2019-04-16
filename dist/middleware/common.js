@@ -14,9 +14,9 @@ const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const compression_1 = __importDefault(require("compression"));
 const bodyParser = __importStar(require("body-parser"));
-var errorHandler = require('strong-error-handler');
-const hobbies_1 = require("../routes/hobbies");
-const persons_1 = require("../routes/persons");
+let errorHandler = require('strong-error-handler');
+const hobbies_1 = require("../services/restfulRoutes/hobbies");
+const persons_1 = require("../services/restfulRoutes/persons");
 exports.handleCors = (router) => router.use(cors_1.default({ credentials: true, origin: true }));
 exports.handleBodyRequestParsing = (router) => {
     router.use(body_parser_1.default.urlencoded({ extended: true }));
